@@ -1,18 +1,31 @@
-import React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Dashboard from './dashboard'
-import Auth from '../../screens/login/Auth';
-import { Outlet } from 'react-router';
+import { useState } from "react";
+import { Box, Heading, Button } from 'grommet';
+import {AppsRounded} from 'grommet-icons'
+import AppBar from '../components/appBar';
+import SideBar from '../components/sideBar';
 
+  
+export default function Layout({ children, size }) {
+const [showSidebar, setShowSidebar] = useState(false);
 
-
-export default function Layout({ children }) {
 
     return (
-        <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-            <CssBaseline />
-            <Outlet />
-        </Box>
+          <Box fill>
+            <AppBar>
+              <Heading level='3' margin='none'>My App</Heading>
+              <Button
+                icon={<AppsRounded />}
+                onClick={() => setShowSidebar(!showSidebar)}
+              />
+            </AppBar>
+            <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
+              <Box flex align='center' justify='center'>
+                {children}
+              </Box>
+              <SideBar size={size} showSidebar={showSidebar} setShowSidebar={(bool) => setShowSidebar(bool)} />
+            </Box>
+
+          </Box>
+        
     );
 }

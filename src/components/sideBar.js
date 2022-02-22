@@ -16,7 +16,7 @@ const SideBar = ({ showSidebar, size, setShowSidebar }) => {
                         align='center'
                         justify='center'
                     >
-                        sidebar
+                        Sidebar Tab
                     </Box>
                 </Collapsible>
             ) : (
@@ -40,6 +40,7 @@ const SideBar = ({ showSidebar, size, setShowSidebar }) => {
                         justify='center'
                     >
                         sidebar
+                        
                     </Box>
                 </Layer>
             )}
