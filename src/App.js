@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Grommet, Button, Heading, Collapsible, Box, ResponsiveContext, Layer } from 'grommet';
+import { Notification, FormClose } from 'grommet-icons';
+import { theme } from './styles/theme'
+import AppBar from './components/appBar';
+import React, { useState } from "react";
+import SideBar from './components/sideBar';
+
+import Layout from './components/layout/layout'
+import store from './redux/store';
+import { Provider } from 'react-redux';
+import Auth from './screens/login/Auth';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './Theme'
+import AuthProvider from './components/auth/authProvider';
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
+  const [showSidebar, setShowSidebar] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grommet theme={theme} full themeMode="light">
+      <ResponsiveContext.Consumer>
+        {size => (
+          <Box fill>
+            <AppBar>
+              <Heading level='3' margin='none'>My App</Heading>
+              <Button
+                icon={<Notification />}
+                onClick={() => setShowSidebar(!showSidebar)}
+              />
+            </AppBar>
+            <Box direction='row' flex overflow={{ horizontal: 'hidden' }}>
+              <Box flex align='center' justify='center'>
+                app body
+              </Box>
+              <SideBar size={size} showSidebar={showSidebar} setShowSidebar={(bool) => setShowSidebar(bool)} />
+            </Box>
+
+          </Box>
+        )}
+      </ResponsiveContext.Consumer>
+    </Grommet >
   );
 }
 
